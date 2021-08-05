@@ -3,12 +3,19 @@ const slugify = require("slugify");
 const Category = require("../models/Category");
 const router = express.Router();
 
-// routes views
+// ROUTES VIEWS
+//render register page
 router.get("/admin/categories/new", (req, res) => {
   res.render("admin/categories/new");
 });
 
-//routes api
+//render page list categories
+router.get("/admin/categories", (req, res) => {
+  res.render("admin/categories/index");
+});
+
+//ROUTES API
+//route for register
 router.post("/categories/save", (req, res) => {
   var title = req.body.title;
   if (title != undefined) {
