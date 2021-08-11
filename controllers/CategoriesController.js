@@ -11,7 +11,9 @@ router.get("/admin/categories/new", (req, res) => {
 
 //render page list categories
 router.get("/admin/categories", (req, res) => {
-  res.render("admin/categories/index");
+  Category.findAll().then((categories) => {
+    res.render("admin/categories/index", { categories: categories });
+  });
 });
 
 //ROUTES API
@@ -30,4 +32,17 @@ router.post("/categories/save", (req, res) => {
   }
 });
 
+router.post("/categories/delete", (req, res) => {
+  var id = req.body.id;
+  if (id != undefined) {
+    Category.destroy({
+      where: {
+        id: id,
+      },
+    }).then(() => {
+      res.redirect("/admin/categories");
+    });
+  } else {
+  }
+});
 module.exports = router;
